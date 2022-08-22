@@ -15,28 +15,31 @@ invested = 0
 fundingTimestamp = tsunami.getNextFundingTimestamp()
 # funding = tsunami.getTimeToNextFunding()
 payout = tsunami.getPayout(address.address)
+data = tsunami.getDataFromAddress(address.address, 'k_positionOpenNotional')
+singleOrderAmount = 10
+margin = 3
 
 while True:
     oraclePrice = tsunami.getOracleTwapPrice()
     marketPrice = tsunami.getTwapSpotPrice()
     priceDif = marketPrice / oraclePrice
+    p = tsunami.getPositionNotionalAndUnrealizedPnl(address.address)
 
     if priceDif >= 1.03 and marketPrice > oraclePrice and position['positionSize'] == 0:
-        tsunami.short(10, 3)
-        invested += 10
+        tsunami.short(singleOrderAmount, margin)
+        invested += singleOrderAmount
         entryPrice = marketPrice
-    if position['margin'] is not 0 and invested == 0:
-        invested = position['margin'] * 1.01
+    if position['margin'] != 0 and invested == 0:
+        invested = (position['margin'] * 1.01) / pow(10, 6)
 
 
     payout = tsunami.getPayout(address.address)
     profit = entryPrice / marketPrice
 
-    if payout >= invested * 1.03:
-        desiredOut = invested * 1.03
+    if payout >= (invested * margin) * 1.03:
         tsunami.closePosition()
 
-    if marketPrice >= entryPrice * 1.03:
+    if marketPrice >= entryPrice * 1.06:
         tsunami.short(10, 3)
         invested += 10
 
