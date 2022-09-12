@@ -103,3 +103,6 @@ class Tsunami:
 
     def closePosition(self):
         return self.myAddress.invokeScript(self.contractAddress, 'closePosition', [], [])
+
+    def addMargin(self, amount):
+        self.myAddress.invokeScript(self.contractAddress, 'addMargin', [], [{'type': 'integer', 'value': amount}])
