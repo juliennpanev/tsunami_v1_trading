@@ -105,4 +105,4 @@ class Tsunami:
         return self.myAddress.invokeScript(self.contractAddress, 'closePosition', [], [])
 
     def addMargin(self, amount):
-        self.myAddress.invokeScript(self.contractAddress, 'addMargin', [], [{'type': 'integer', 'value': amount}])
+        self.myAddress.invokeScript(self.contractAddress, 'addMargin', [], [{'amount': amount, 'assetId': 'DG2xFkPdDwKUoBkzGAhQtLpSGzfXLiCYPEzeKH2Ad24p'}])
