@@ -14,8 +14,8 @@ tsunami = Tsunami(tsunamiContract, address, node, usdnId)
 entryPrice = 0
 invested = 0
 # Set default values for putting an order
-singleOrderAmount = 13
-margin = 3
+singleOrderAmount = 10
+margin = 4
 
 
 
